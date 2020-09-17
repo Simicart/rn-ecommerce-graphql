@@ -1,0 +1,30 @@
+{
+  "name": "simicart",
+  "version": "0.1.0",
+  "description": "Simicart React Native ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "Simicart",
+    "email": "developer@simicart.com",
+    "url": "https://github.com/Simicart/"
+  },
+  "license": "MIT",
+  "dependencies": {
+  },
+  "homepage": "https://github.com/Simicart/rn-ecommerce#readme",
+  "bugs": {
+    "url": "https://github.com/Simicart/rn-ecommerce/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Simicart/rn-ecommerce.git"
+  },
+  "keywords": [
+    "react-native",
+    "iOS",
+    "android"
+  ]
+}
