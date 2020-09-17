@@ -22,8 +22,8 @@ class App extends React.Component {
     render() {
         return (
             <View>
+                <Text>{`This component is rendered correctly at ${Date(Date.now()).toString()}`}</Text>
                 <Simicart/>
-                <Text>This component is rendered!</Text>
             </View>
         )
     }
