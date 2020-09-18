@@ -8,25 +8,25 @@
 
 import React from 'react';
 import {
-    View,
-    Text
+  View,
+  Text,
 } from 'react-native';
 import Simicart from 'simicart';
 
 class App extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render() {
-        return (
-            <View>
-                <Text>{`This component is rendered correctly at ${Date(Date.now()).toString()}`}</Text>
-                <Simicart/>
-            </View>
-        )
-    }
+  render() {
+    return (
+        <View>
+          <Text>{`This component is rendered correctly at ${Date(Date.now()).toString()}`}</Text>
+          <Simicart/>
+        </View>
+    );
+  }
 }
 
 export default App;

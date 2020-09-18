@@ -24,10 +24,9 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
-UserInterface.xcuserstate  
+UserInterface.xcuserstate
 # Android/IntelliJ
 #
-build/
 .idea
 .gradle
 local.properties
@@ -53,3 +52,11 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 .vscode
+example/node_modules/
+example/android/build/
+example/android/app/build/
+example/yarn.lock
+yarn.lock
+gen/
+example/gen/
+example/ios/Podfile.lock

@@ -1,6 +1,6 @@
 {
   "name": "simicart",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Simicart React Native ",
   "main": "index.js",
   "scripts": {
@@ -12,8 +12,7 @@
     "url": "https://github.com/Simicart/"
   },
   "license": "MIT",
-  "dependencies": {
-  },
+  "dependencies": {},
   "homepage": "https://github.com/Simicart/rn-ecommerce#readme",
   "bugs": {
     "url": "https://github.com/Simicart/rn-ecommerce/issues"
@@ -26,5 +25,9 @@
     "react-native",
     "iOS",
     "android"
-  ]
+  ],
+  "devDependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
+    "react-redux": "^7.2.1"
+  }
 }
