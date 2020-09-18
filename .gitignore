@@ -60,3 +60,4 @@ yarn.lock
 gen/
 example/gen/
 example/ios/Podfile.lock
+coverage/
