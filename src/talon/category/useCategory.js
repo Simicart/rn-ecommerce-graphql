@@ -4,13 +4,19 @@ import { useCatalogContext } from '../../lib/context/catalog';
 
 export const useCategory = (props) => {
   const { categoryId, query, updateCategories } = props;
-  console.log('request');
-  const { loading, error, data } = useQuery(query);
-  if (data != undefined && data.category) {
+
+  // Avoid repeating request
+  const [skip, setSkip] = useState(false);
+  const { loading, error, data } = useQuery(query, { skip: skip });
+
+  if (data && data.category) {
     updateCategories(data.category);
+    // Note: update currentPage, rootCategoryPage?
+    setSkip(true);
   }
+
   return {
-    error,
-    loading,
+    error: error,
+    loading: loading,
   };
 };
