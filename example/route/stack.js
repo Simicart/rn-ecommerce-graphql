@@ -1,15 +1,20 @@
-import React from 'react'
-import CartStateDisplay from "../src/test_component/cartStateDisplay";
-import CatalogStateDisplay from '../src/test_component/catalogStateDisplay'
-import { createStackNavigator } from '@react-navigation/stack';
+import { CategoryPage } from 'simicart';
+import { HomePage } from 'simicart'
 
-const Stack = createStackNavigator();
-
-export default function StackRoute() {
-    return (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Cart" component={CartStateDisplay} />
-            <Stack.Screen name="Category" component={CatalogStateDisplay} />
-        </Stack.Navigator>
-    );
+export default {
+    splash: {
+        active: false,
+        route_name: 'Splash',
+        component: require('../src/screen/splash/pages/index').default
+    },
+    home: {
+        active: true,
+        route_name: "Home",
+        component: HomePage
+    },
+    category: {
+        active: true,
+        route_name: "Category",
+        component: CategoryPage
+    }
 }
