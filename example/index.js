@@ -6,6 +6,7 @@ import { AppRegistry, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { AppComposite } from 'simicart';
+import { ProductList } from 'simicart';
 
 import { name as appName } from './app.json';
 
@@ -28,6 +29,7 @@ function Index() {
       <AppComposite customReducer={counterSlice}>
         <Drawer.Navigator>
           <Drawer.Screen name={'Category List'} component={CategoryWrapper} />
+          <Drawer.Screen name={'Moving product'} component={ProductList} />
           <Drawer.Screen name={'Custom'} component={CustomStateDisplay} />
           <Drawer.Screen name={'DemoCategory'} component={CategoryPage} />
           <Drawer.Screen name={'Cart'} component={CartStateDisplay} />
