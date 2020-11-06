@@ -1,10 +1,12 @@
-export { AppComposite } from './lib/index.js';
+export { AppComposite, customContext } from './lib/index.js';
 
 export { useAppContext } from './lib/context/app';
 export { useCatalogContext } from './lib/context/catalog';
 export { useCartContext } from './lib/context/cart.js';
 export { useUserContext } from './lib/context/user';
 export { useCheckoutContext } from './lib/context/checkout';
+
+export { default as CategoryPage } from './ui/category/categoryPage';
 
 export { default as AppContextProvider } from './lib/context/app.js';
 

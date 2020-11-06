@@ -146,11 +146,14 @@
     ]
   },
   "dependencies": {
+    "@apollo/client": "^3.2.5",
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/native": "^5.8.2",
     "@react-navigation/stack": "^5.11.1",
     "@reduxjs/toolkit": "^1.4.0",
+    "graphql": "^15.3.0",
+    "md5": "^2.3.0",
     "prop-types": "^15.7.2",
     "react-intl": "^5.8.5",
     "react-native-gesture-handler": "^1.8.0",
