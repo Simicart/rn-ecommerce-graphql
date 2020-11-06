@@ -1,9 +1,12 @@
 import { gql } from '@apollo/client';
 
 function categoryQuery(props) {
+  // 2 is default root category in Magento
+  const { categoryId = 2 } = props;
+
   return gql`
     {
-      category(id: 2) {
+      category(id: ${categoryId}) {
         products {
           total_count
           page_info {
