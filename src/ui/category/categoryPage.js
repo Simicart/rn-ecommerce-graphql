@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, View, Text, ActivityIndicator } from 'react-native';
-import { useCatalogContext } from '../../lib/context/catalog.js';
+import { useCatalogContext } from '../..';
 import { useCategory } from '../../talon/category/useCategory.js';
 import categoryQuery from './categoryQuery.js';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { State_Lifeform } from './component/State_Lifeform';
-import { Effect_Lifeform } from './component/Effect_Lifeform';
+import { State_Lifeform } from './component/State_Lifeform.js';
+import { Effect_Lifeform } from './component/Effect_Lifeform.js';
 
 describe('Test hook change', function () {
   test('Can text change by state', () => {

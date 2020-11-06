@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount, shallow, render } from 'enzyme';
-import { Complex_UI } from './component/Complex_UI';
+import { Complex_UI } from './component/Complex_UI.js';
 
 describe('Render Complex UI Component', () => {
   test('with shallow', () => {

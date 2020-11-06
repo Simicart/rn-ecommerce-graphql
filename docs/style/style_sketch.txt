@@ -56,17 +56,6 @@ theme:
     ]
 
 
-
-
-
-
-
-
-
-
-
-
-
     platform:
         ios:
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { Complex_UI } from './component/Complex_UI';
+import { Complex_UI } from './component/Complex_UI.js';
 
 describe('Queries Elements', () => {
   test('with shallow and prop', () => {

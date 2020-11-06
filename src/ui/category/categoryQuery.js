@@ -1,4 +1,4 @@
-import { useQuery, gql } from '@apollo/client';
+import { gql } from '@apollo/client';
 
 function categoryQuery(props) {
   return gql`
@@ -40,4 +40,5 @@ function categoryQuery(props) {
     }
   `;
 }
+
 export default categoryQuery;

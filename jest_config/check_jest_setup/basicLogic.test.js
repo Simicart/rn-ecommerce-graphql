@@ -1,4 +1,4 @@
-import { getRandomLargeNumber } from '../src/lib/util/getRandomLargeNumber';
+import { getRandomLargeNumber } from '../../src/lib/util/getRandomLargeNumber.js';
 
 function add(a: int, b: int): int {
   return a + b;
