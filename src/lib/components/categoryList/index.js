@@ -5,7 +5,6 @@ import {SpaceBlock} from '../others/spaceBlock.js';
 
 function CategoryList(props) {
   const {name, data, handleChangePage} = props;
-  const {} = data ?? {};
 
   return (
       <View>
@@ -21,7 +20,6 @@ function CategoryList(props) {
                   <Text style={styles.subCategoryText}
                   >{`${x.name}`}</Text>
                   <Text style={styles.arrowIcon}>{'>'}</Text>
-                  {/*<Icon ios="ios-add" android="md-add"/>*/}
                 </TouchableOpacity>
             );
           })}
@@ -31,26 +29,34 @@ function CategoryList(props) {
 }
 
 function CategoryDumpComponent(props) {
-  const {id = null} = props;
-  const [catalogState, catalogAction] = useCatalogContext();
+  const [catalogState,] = useCatalogContext();
   const {rootCategoryId, categories} = catalogState;
 
-  const renderLayer = categories[id ?? rootCategoryId];
+  const {id = rootCategoryId} = props;
+
+  const renderLayer = categories[id];
+  const data = renderLayer.children.map(x => {
+    return {
+      id: x,
+      name: categories[x].name
+    };
+  });
+
   if (renderLayer) {
     return (
         <CategoryList name={renderLayer.name}
-                      data={renderLayer.children}
+                      data={data}
                       handleChangePage={(id: string) => {
                       }}
         />
     );
-  }
-  else {
-    console.log('No children. Should jump to product list?');
+  } else {
     return (
-        <View>
-
-        </View>
+        <CategoryList name={renderLayer.name}
+                      data={[]}
+                      handleChangePage={() => {
+                      }}
+        />
     );
   }
 
@@ -65,16 +71,13 @@ function CategoryWrapper(props) {
   const [currentID, setCurrentID] = useState(props.id || rootCategoryId);
 
   const getDisplayData = (id: string): Array<> => {
-    console.log('getting ' + id);
-
     const {children} = categories[id] ?? {};
 
     if (!children) {
       console.info('no children. This should jump to Product list?');
       //TODO: In this case, switch to Product list
       return [];
-    }
-    else {
+    } else {
       return children
           //         get children data
           .map(children_id => {
