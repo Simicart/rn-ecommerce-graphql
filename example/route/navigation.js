@@ -38,6 +38,7 @@ function AppStack() {
             drawerPosition={Platform.OS === 'android' ? (I18nManager.isRTL ? 'right' : 'left') : ''}
             drawerWidth={Dimensions.get('screen').width * 3 / 5 > 280 ? 280 : Dimensions.get('screen').width * 2 / 3}>
             <Drawer.Screen name="Root" component={AppStack} />
+            <Drawer.Screen name="Category" component={StackRoute.category.component} />
         </Drawer.Navigator>
     );
 
