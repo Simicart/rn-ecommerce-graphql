@@ -1,0 +1,11 @@
+'Core development':
+  'In progress':
+    - 'in progress'
+  'Review in progress':
+    - 'wanting reviews'
+  'Reviewer approved':
+    - 'reviewing'
+  'Done':
+    - 'done'
+  'Backlog':
+    - 'maybe later'

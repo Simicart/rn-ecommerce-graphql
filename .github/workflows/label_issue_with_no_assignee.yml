@@ -1,4 +1,4 @@
-# note: having asignee doesn't automatically remove label, as an issue can have multiple assignees.
+# note: having assignee doesn't automatically remove label, as an issue can have multiple assignees.
 
 on:
   issues:
