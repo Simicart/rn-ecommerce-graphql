@@ -13,7 +13,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const emojis = await github.emojis.get();
+            const emojis = Object.keys(await github.emojis.get());
             const chance_of_one = 0.95
 
             const current_title = context.payload.issue.title.trim()
@@ -25,7 +25,7 @@ jobs:
                     owner: context.repo.owner,
                     repo: context.repo.repo,
                     issue_number: context.payload.issue.number,
-                    title: `${current_title} ${emojis[Math.floor(Math.random() * emojis.length)]}`
+                    title: `${current_title} :${emojis[Math.floor(Math.random() * emojis.length)]}:`
                   });
               }
               else {
@@ -33,8 +33,8 @@ jobs:
                     owner: context.repo.owner,
                     repo: context.repo.repo,
                     issue_number: context.payload.issue.number,
-                    title: `${current_title} ${emojis[Math.floor(Math.random() * emojis.length)]}`
-                            + ` ${emojis[Math.floor(Math.random() * emojis.length)]}`
+                    title: `${current_title} :${emojis[Math.floor(Math.random() * emojis.length)]}:`
+                            + ` :${emojis[Math.floor(Math.random() * emojis.length)]}:`
                   });
               }
 
