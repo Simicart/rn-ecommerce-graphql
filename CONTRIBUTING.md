@@ -2,6 +2,24 @@
 
 We want this community to be friendly and respectful to each other. Please follow it in all your interactions with the project.
 
+
+## Installation
+
+This repo has been tested on __Ubuntu 18.x__, __MacOS 10.15.7__
+* Clone [this repo](https://github.com/Simicart/rn-ecommerce-graphql).
+* Install [yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable).
+* Install [node](https://nodejs.org/en/) ( > v14.x).
+* Install [Android Studio](https://developer.android.com/studio) for easier setup time.
+* Install __Android SDK__ >= v28.x, __JDK__ >=8.
+
+Helpful links:
+* [setup react-native](https://reactnative.dev/docs/environment-setup).
+* [choose sdk](https://stackoverflow.com/questions/16581752/android-studio-how-to-change-android-sdk-path).
+* [choose jdk](https://stackoverflow.com/questions/19608742/how-to-set-java-sdk-path-in-androidstudio).
+
+
+
+
 ## Development workflow
 
 To get started with the project, run `yarn bootstrap` in the root directory to install the required dependencies for each package:
@@ -97,6 +115,8 @@ When you're sending a pull request:
 - Review the documentation to make sure it looks good.
 - Follow the pull request template when opening a pull request.
 - For pull requests that change the API or implementation, discuss with maintainers first by opening an issue.
+
+
 
 ## Code of Conduct
 
