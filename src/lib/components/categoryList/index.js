@@ -1,7 +1,17 @@
 import React, {useMemo, useState} from 'react';
 import {ScrollView, Text, View, StyleSheet, Button, TouchableOpacity} from 'react-native';
-import {useCatalogContext} from '../../..';
+import {ProductList, useCatalogContext} from '../../..';
 import {SpaceBlock} from '../others/spaceBlock.js';
+
+const md5 = require('md5');
+
+const fakeData = [...Array(30).keys()].map((x, index) => {
+  return {
+    name: md5(x.toString() + index),
+    size: x % 4 + 1,
+    binary: (x % 2 === 0) ? 'up' : 'down',
+  };
+});
 
 function CategoryList(props) {
   const {name, data, handleChangePage} = props;
@@ -32,9 +42,10 @@ function CategoryDumpComponent(props) {
   const [catalogState,] = useCatalogContext();
   const {rootCategoryId, categories} = catalogState;
 
-  const {id = rootCategoryId} = props;
+  const [catalogId, setCatalogId] = useState(props && props.id || rootCategoryId);
 
-  const renderLayer = categories[id];
+  const renderLayer = categories[catalogId];
+
   const data = renderLayer.children.map(x => {
     return {
       id: x,
@@ -42,25 +53,27 @@ function CategoryDumpComponent(props) {
     };
   });
 
-  if (renderLayer) {
+  // have info, and have children ---> catalog Page. Else jump to product
+  if (renderLayer && data.length > 0) {
     return (
-        <CategoryList name={renderLayer.name}
-                      data={data}
-                      handleChangePage={(id: string) => {
-                      }}
-        />
+        <ScrollView style={styles.categoryOutline}>
+          <CategoryList name={renderLayer.name}
+                        data={data}
+                        handleChangePage={(id: string) => {
+                          setCatalogId(id);
+                        }}
+          />
+          <SpaceBlock/>
+
+          <Button title={'reset'} onPress={() => setCatalogId(rootCategoryId)}/>
+        </ScrollView>
     );
   } else {
+    // End of catalog, to the land of product-list, or error...
     return (
-        <CategoryList name={renderLayer.name}
-                      data={[]}
-                      handleChangePage={() => {
-                      }}
-        />
+        <ProductList/>
     );
   }
-
-  // no children ?? maybe last layer before real products
 
 }
 

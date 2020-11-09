@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   badge: {
     backgroundColor: 'grey',
     paddingTop: 0,
-    paddingBottom: 4,
+    paddingBottom: 2,
     paddingLeft: 7,
     paddingRight: 7,
     flex: 5,
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     marginLeft: 2,
   },
   content: {
-    marginTop: 7,
+    marginTop: 3,
   },
   cut_button: {
     marginLeft: 5,

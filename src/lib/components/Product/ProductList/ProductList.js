@@ -1,8 +1,16 @@
 import React, {useMemo, useState} from 'react';
-import {ScrollView, Text, Vibration, View} from 'react-native';
+import {
+  FlatList,
+  ScrollView,
+  SectionList,
+  Text,
+  TouchableOpacity,
+  Vibration,
+  View
+} from 'react-native';
+import {SpaceBlock} from '../../others/spaceBlock.js';
 import {Product_Placeholder} from './placeholder/product_Placeholder.js';
-import {useCatalogContext} from '../../../..';
-import {Button} from 'react-native-elements';
+
 import {generateFilterLabelName} from './ApplyingLabel/ProductFilterLabel.js';
 import {generateSortLabelName} from './ApplyingLabel/productSortLabel.js';
 import {filterArray, sortArray} from './layers.flow.js';
@@ -42,7 +50,7 @@ function ProductList(props) {
         <View style={{flexDirection: 'row'}}>
           {labelList.map(label => {
             return (
-                <AutoTrimFlatRemovableGreyBadge title={label}/>
+                <AutoTrimFlatRemovableGreyBadge key={md5(label)} title={label}/>
             );
           })}
         </View>
@@ -51,52 +59,93 @@ function ProductList(props) {
 
   // TODO: memo labels, remove inline style
   return (
-      <View style={{flex: 1}}>
-        {Platform.OS === 'ios' ? <View style={{height: 50}}/> : null}
-        <ScrollView>
-          <Button title={'Reset me'} onPress={() => {
-            console.log('Filtering');
-            handleFilter([]);
-            handleSort([]);
-          }}/>
+      <View style={{flex:1}}>
+        <SpaceBlock value={62}/>
 
-          {renderLabels(filterLayers, sortLayers)}
+        <View style={{flex:1}}>
+          <View style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            marginBottom: 20,
+            marginLeft: 10
+          }}>
+            {renderLabels(sortLayers, filterLayers)}
+
+            <TouchableOpacity style={{marginLeft: 5, marginTop: 7}}
+                              onPress={() => {
+                                handleFilter([]);
+                                handleSort([]);
+                              }}
+            >
+              {(sortLayers.length + filterLayers.length) > 0 &&
+              <Text style={{fontSize: 14, lineHeight: 16}}>Clean up</Text>
+              }
+              <View/>
+            </TouchableOpacity>
+          </View>
 
           <View style={{height: 10}}/>
 
-          {getSortedData(getFilteredData(productData, filterLayers), sortLayers).map((value) => {
-            return (
-                <Product_Placeholder key={md5(JSON.stringify(value))} data={value}/>
-            );
-          })}
-        </ScrollView>
+          <FlatList data={getSortedData(getFilteredData(productData, filterLayers), sortLayers)}
+                    renderItem={(value) => {
+                      return (
+                          <Product_Placeholder data={value}/>
+                      );
+                    }}
+                    keyExtractor={(item) => md5(JSON.stringify(item))}
+                    numColumns={2}
+          />
 
-        <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start'}}>
-          <Button title={'Sort me'}
-                  style={{flex: 1}}
-                  onPress={() => {
-                    handleSort([
-                      {
-                        name: 'name',
-                        type: 'ascending',
-                      },
-                    ]);
-                  }}/>
+          {/*<Button title={'Reset me'} onPress={() => {*/}
+          {/*  console.log('Filtering');*/}
+          {/*  handleFilter([]);*/}
+          {/*  handleSort([]);*/}
+          {/*}}/>*/}
 
-          <View style={{height: 20}}/>
 
-          <Button title={'Filter me'}
-                  style={{flex: 1}}
-                  onPress={() => {
-                    console.log('Filtering');
-                    handleFilter([
-                      {
-                        name: 'name',
-                        filterValue: 'd',
-                        type: 'greater_equal',
-                      },
-                    ]);
-                  }}/>
+          <View style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            backgroundColor: '#BDBDBD80',
+            height: 45,
+            paddingLeft: 8,
+
+          }}>
+            <TouchableOpacity style={{flex: 8, marginTop: 11}}
+                              onPress={() => {
+                              }}>
+              <Text>☰</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={{flex: 8, marginTop: 11}}
+                              onPress={() => {
+                                console.log('Filtering');
+                                handleFilter([
+                                  {
+                                    name: 'name',
+                                    filterValue: 'd',
+                                    type: 'greater_equal',
+                                  },
+                                ]);
+                              }}>
+              <Text>z</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={{flex: 1, marginTop: 11}}
+                              onPress={() => {
+                                handleSort([
+                                  {
+                                    name: 'name',
+                                    type: 'ascending',
+                                  },
+                                ]);
+                              }}>
+              <Text>⇵</Text>
+            </TouchableOpacity>
+
+          </View>
         </View>
       </View>
   );

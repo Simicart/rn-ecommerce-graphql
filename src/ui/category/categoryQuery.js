@@ -1,12 +1,13 @@
 import { gql } from '@apollo/client';
+import { useCatalogContext } from '../..';
 
 function categoryQuery(props) {
-  // 2 is default root category in Magento
-  const { categoryId = 2 } = props;
+  // if not specified, query with id 2, which is default root catalog of megento
+  const { categoryId } = props || {};
 
   return gql`
     {
-      category(id: ${categoryId}) {
+      category(id: ${categoryId ?? 2}) {
         products {
           total_count
           page_info {
