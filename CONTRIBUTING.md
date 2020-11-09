@@ -9,14 +9,20 @@ This repo has been tested on __Ubuntu 18.x__, __MacOS 10.15.7__
 * Clone [this repo](https://github.com/Simicart/rn-ecommerce-graphql).
 * Install [yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable).
 * Install [node](https://nodejs.org/en/) ( > v14.x).
+
+For Android development:
 * Install [Android Studio](https://developer.android.com/studio) for easier setup time.
 * Install __Android SDK__ >= v28.x, __JDK__ >=8.
+
+For Ios develoment:
+* Install [Xcode](https://developer.apple.com/xcode/).
+* Install [CocoaPod](https://cocoapods.org/).
 
 Helpful links:
 * [setup react-native](https://reactnative.dev/docs/environment-setup).
 * [choose sdk](https://stackoverflow.com/questions/16581752/android-studio-how-to-change-android-sdk-path).
 * [choose jdk](https://stackoverflow.com/questions/19608742/how-to-set-java-sdk-path-in-androidstudio).
-
+* [running on ios](https://reactnative.dev/docs/running-on-device).
 
 
 
