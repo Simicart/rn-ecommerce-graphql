@@ -32,9 +32,7 @@ function CartStateDisplay(props) {
       {/*<Text>{JSON.stringify(Object.entries(cartApi), null, 1)}</Text>*/}
       <ColorfulButton
         title={'Navigate'}
-        onPress={() =>
-          navigation.navigate('Category')
-        }
+        onPress={() => navigation.navigate('Category')}
       />
       <ColorfulButton
         title={`Get CART_ID`}

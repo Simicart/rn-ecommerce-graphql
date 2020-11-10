@@ -1,20 +1,25 @@
 import { CategoryPage } from 'simicart';
-import { HomePage } from 'simicart'
+import { HomePage, CategoryDumpComponent } from 'simicart';
 
 export default {
-    splash: {
-        active: false,
-        route_name: 'Splash',
-        component: require('../src/screen/splash/pages/index').default
-    },
-    home: {
-        active: true,
-        route_name: "Home",
-        component: HomePage
-    },
-    category: {
-        active: true,
-        route_name: "Category",
-        component: CategoryPage
-    }
-}
+  splash: {
+    active: false,
+    route_name: 'Splash',
+    component: require('../src/screen/splash/pages/index').default,
+  },
+  home: {
+    active: true,
+    route_name: 'Home',
+    component: HomePage,
+  },
+  category: {
+    active: true,
+    route_name: 'Category Fetch',
+    component: CategoryPage,
+  },
+  catalogDisplay: {
+    active: true,
+    route_name: 'Category',
+    component: CategoryDumpComponent,
+  },
+};

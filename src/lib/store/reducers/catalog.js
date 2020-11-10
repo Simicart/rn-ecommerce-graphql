@@ -1,5 +1,5 @@
 import {handleActions} from 'redux-actions';
-import {flattenNestedStruct} from '../../util/FlattenNestedStruct.js';
+import {flattenNestedStruct} from '../../util/flattenNestedStruct.js';
 
 import actions from '../actions/catalog';
 

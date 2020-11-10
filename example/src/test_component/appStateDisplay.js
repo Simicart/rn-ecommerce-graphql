@@ -15,7 +15,7 @@ function AppStateDisplay(props) {
     setOnline,
     setOffline,
     setPageLoading,
-    switchStack
+    switchStack,
   } = appApi;
 
   return (

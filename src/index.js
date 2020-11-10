@@ -7,7 +7,7 @@ export { useUserContext } from './lib/context/user';
 export { useCheckoutContext } from './lib/context/checkout';
 
 export { default as CategoryPage } from './ui/category/categoryPage';
-export { default as HomePage } from './ui/home/homePage'
+export { default as HomePage } from './ui/home/homePage';
 
 export { default as AppContextProvider } from './lib/context/app.js';
 
@@ -22,3 +22,9 @@ export { fetchCartDetails } from './temporaryMocks/Network/fetchCartDetails.js';
 export { addItemMutation } from './temporaryMocks/Network/addItemMutation.js';
 export { removeItem } from './temporaryMocks/Network/removeItem.js';
 export { updateItem } from './temporaryMocks/Network/updateItem.js';
+export {
+  CategoryList,
+  CategoryWrapper,
+  CategoryDumpComponent,
+} from './lib/index.js';
+export * from './lib/index.js';
