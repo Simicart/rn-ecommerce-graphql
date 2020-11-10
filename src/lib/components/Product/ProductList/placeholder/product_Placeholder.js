@@ -1,22 +1,32 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Text, View} from 'react-native';
 import {Dimensions} from 'react-native';
+import {ThemeContext} from 'react-native-elements';
 import {makeId} from '../../../../util/makeRandomString.js';
 
 const windowWidth = Dimensions.get('window').width;
 
 function Product_Placeholder(props) {
   const {data, width_percent = 0.5} = props;
+  const { theme } = useContext(ThemeContext);
+
   return (
       <View style={{
-        borderColor: '#00000025',
-        borderWidth: 1,
         width: windowWidth * (width_percent - 0.05),
         marginLeft: 8,
         marginRight: 8,
         marginBottom: 8,
         marginTop: 8,
-        height: 263
+        height: 263,
+
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 0.5,
+        },
+        shadowOpacity: 0.20,
+        shadowRadius: 0.41,
+        elevation: 1,
       }}>
         <View style={{
           height: 171,

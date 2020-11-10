@@ -1,6 +1,6 @@
 export const defaultTheme = {
     color: {
-        primary: '#97bcd9',
+        primary: '#87acd9',
         primary_variant_1: '#41c6e0',
         primary_variant_2: '#2c97ab',
         primary_variant_3: '#b5ebf5',
@@ -16,7 +16,6 @@ export const defaultTheme = {
 
         background: '#FFFFFF',
         surface: '#d0c5f6',
-
         on: {
             primary: '#FFFFFF',
             secondary: '#000000',
@@ -24,7 +23,6 @@ export const defaultTheme = {
             surface: '#000000',
             error: '#FFFFFF',
         },
-
         additional_color: {
             calm: '#4b99e0',
             spark: '#b700bb',
@@ -35,25 +33,19 @@ export const defaultTheme = {
             size: 34,
             font_family: ''
         },
-
         highlight: {
             size: 24,
             font_family: '',
         },
-
         medium: {
             size: 20,
             font_family: '',
         },
-
         note: {
             size: 16,
             font_family: '',
         }
-
-
     },
-
     icon: {
         phone: {
             name: 'ios-american-football',
@@ -72,7 +64,6 @@ export const defaultTheme = {
             name: 'ios-american-football'
         },
     },
-
     isSignedIn: {
         color: {
             primary: '#F5F700'

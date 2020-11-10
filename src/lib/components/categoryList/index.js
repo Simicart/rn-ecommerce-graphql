@@ -39,7 +39,7 @@ function CategoryList(props) {
 }
 
 function CategoryDumpComponent(props) {
-  const [catalogState,] = useCatalogContext();
+  const [catalogState] = useCatalogContext();
   const {rootCategoryId, categories} = catalogState;
 
   const [catalogId, setCatalogId] = useState(props && props.id || rootCategoryId);
@@ -49,7 +49,7 @@ function CategoryDumpComponent(props) {
   const data = renderLayer.children.map(x => {
     return {
       id: x,
-      name: categories[x].name
+      name: categories[x].name,
     };
   });
 
@@ -68,7 +68,8 @@ function CategoryDumpComponent(props) {
           <Button title={'reset'} onPress={() => setCatalogId(rootCategoryId)}/>
         </ScrollView>
     );
-  } else {
+  }
+  else {
     // End of catalog, to the land of product-list, or error...
     return (
         <ProductList/>
@@ -90,7 +91,8 @@ function CategoryWrapper(props) {
       console.info('no children. This should jump to Product list?');
       //TODO: In this case, switch to Product list
       return [];
-    } else {
+    }
+    else {
       return children
           //         get children data
           .map(children_id => {

@@ -50,15 +50,11 @@ theme:
             size?:
             reverse?:
             reversedColor?:
-
         email:
 
     ]
-
-
     platform:
         ios:
-
 
         android:
 

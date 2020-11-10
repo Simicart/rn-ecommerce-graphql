@@ -32,13 +32,11 @@ function Index() {
     <NavigationContainer>
       <AppComposite customReducer={counterSlice}>
         <Drawer.Navigator>
-          <Drawer.Screen name={'Category List'} component={CategoryWrapper} />
+          <Drawer.Screen name={'Fetch data'} component={CategoryPage} />
           <Drawer.Screen
             name={'Category List_2'}
             component={CategoryDumpComponent}
           />
-          <Drawer.Screen name={'DemoCategory'} component={CategoryPage} />
-          <Drawer.Screen name={'Moving product'} component={ProductList} />
           <Drawer.Screen name={'Custom'} component={CustomStateDisplay} />
           <Drawer.Screen name={'Cart'} component={CartStateDisplay} />
           <Drawer.Screen name={'App'} component={AppStateDisplay} />
