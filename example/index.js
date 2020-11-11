@@ -25,13 +25,13 @@ import {
 } from 'simicart';
 import CustomStateDisplay from './src/test_component/customStateDisplay';
 import counterSlice from './src/customReducer/counterSlice';
-
+import Config from './src/Helper/config'
 const Drawer = createDrawerNavigator();
 
 function Index() {
   return (
     <NavigationContainer>
-      <AppComposite customReducer={counterSlice}>
+      <AppComposite customReducer={counterSlice} apiBase={Config.merchant_url}>
         <AppRouter />
         {/* <Drawer.Navigator> */}
         {/* <Drawer.Screen name={'Cart'} component={CartStateDisplay} />

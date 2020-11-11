@@ -28,7 +28,8 @@ const preInstantiatedCache = new InMemoryCache({
 export const customContext = React.createContext();
 
 function AppComposite(props) {
-  const apiBase = 'https://magento24.pwa-commerce.com/Store/graphql';
+  console.log('base_url' + props.apiBase);
+  const apiBase = props.apiBase;
   const cache = preInstantiatedCache;
   const apolloClient = new ApolloClient({
     cache,
