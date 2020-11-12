@@ -17,7 +17,7 @@ import {filterArray, sortArray} from './layers.flow.js';
 
 const md5 = require('md5');
 
-const fakeData = [...Array(60).keys()].map((x, index) => {
+const fakeData = [...Array(30).keys()].map((x, index) => {
   return {
     name: md5(x.toString() + index),
     size: x % 4 + 1,

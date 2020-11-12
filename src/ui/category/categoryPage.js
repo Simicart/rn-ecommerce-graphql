@@ -40,6 +40,8 @@ function CategoryPage(props) {
         categories['2'].children.map((x) => {
           return <Text key={x}>{categories[x].name}</Text>;
         })}
+
+      <Text>{JSON.stringify(Object.entries(props.route), null, 2)}</Text>
     </ScrollView>
   );
 }

@@ -1,1 +1,1 @@
-export * from './ProductList/index.js'
+export {ProductList} from './ProductList/index.js'

@@ -1,121 +1,105 @@
 import React, {useMemo, useState} from 'react';
-import {ScrollView, Text, View, StyleSheet, Button, TouchableOpacity} from 'react-native';
-import {ProductList, useCatalogContext} from '../../..';
-import {SpaceBlock} from '../others/spaceBlock.js';
-
-const md5 = require('md5');
-
-const fakeData = [...Array(30).keys()].map((x, index) => {
-  return {
-    name: md5(x.toString() + index),
-    size: x % 4 + 1,
-    binary: (x % 2 === 0) ? 'up' : 'down',
-  };
-});
-
-function CategoryList(props) {
-  const {name, data, handleChangePage} = props;
-
-  return (
-      <View>
-        <Text style={styles.categoryTitle}>{name ?? 'Such empty'}</Text>
-
-        <ScrollView style={styles.subCategoriesOutline}>
-          {data.map((x, index) => {
-            return (
-                <TouchableOpacity key={index}
-                                  style={styles.subCategoryContainer}
-                                  onPress={() => handleChangePage(x.id)}
-                >
-                  <Text style={styles.subCategoryText}
-                  >{`${x.name}`}</Text>
-                  <Text style={styles.arrowIcon}>{'>'}</Text>
-                </TouchableOpacity>
-            );
-          })}
-        </ScrollView>
-      </View>
-  );
-}
+import {
+  ScrollView,
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator
+} from 'react-native';
+import {useCatalogContext} from '../../..';
+import {useCategory} from '../../../talon/category/useCategory.js';
+import categoryQuery from '../../../ui/category/categoryQuery.js';
 
 function CategoryDumpComponent(props) {
-  const [catalogState] = useCatalogContext();
-  const {rootCategoryId, categories} = catalogState;
+  const {navigation} = props;
 
-  const [catalogId, setCatalogId] = useState(props && props.id || rootCategoryId);
+  const [catalogState, catalogApi] = useCatalogContext();
+  const {categories, rootCategoryId} = catalogState;
 
+  const CATEGORY_QUERY = categoryQuery();
+
+  const catalogId = (props?.route?.params?.id) ?? rootCategoryId;
   const renderLayer = categories[catalogId];
 
-  const data = renderLayer.children.map(x => {
-    return {
-      id: x,
-      name: categories[x].name,
-    };
+  const {updateCategories} = catalogApi;
+
+  const talonProps = useCategory({
+    categoryId: catalogId,
+    query: CATEGORY_QUERY,
+    updateCategories: updateCategories,
   });
+
+  const {error, loading} = talonProps;
+
+  if (loading) {
+    return (
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <ActivityIndicator/>
+        </View>
+    );
+  }
+
+  if (error) {
+    return (
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          < Text>Error</Text>
+        </View>
+    );
+  }
+
+  function handleChangePage(id: string) {
+    const isRenderProduct = categories[id].children.length === 0;
+    console.log(isRenderProduct);
+
+    if (!isRenderProduct) {
+      navigation.navigate('Categories', {id: id});
+    } else {
+      console.log('now render product');
+      navigation.navigate('ProductList');
+    }
+  }
+
+  const data = renderLayer?.children ?
+      renderLayer.children.map(x => {
+        return {
+          id: x,
+          name: categories[x].name,
+        };
+      })
+      : [];
+
+  const name = renderLayer?.name ?? 'Such empty';
 
   // have info, and have children ---> catalog Page. Else jump to product
   if (renderLayer && data.length > 0) {
     return (
         <ScrollView style={styles.categoryOutline}>
-          <CategoryList name={renderLayer.name}
-                        data={data}
-                        handleChangePage={(id: string) => {
-                          setCatalogId(id);
-                        }}
-          />
-          <SpaceBlock/>
+          <Text style={styles.categoryTitle}>{name}</Text>
 
-          <Button title={'reset'} onPress={() => setCatalogId(rootCategoryId)}/>
+          <View style={styles.subCategoriesOutline}>
+            {data.map((x, index) => {
+              return (
+                  <TouchableOpacity key={index}
+                                    style={styles.subCategoryContainer}
+                                    onPress={() => {
+                                      handleChangePage(x.id);
+                                    }}
+                  >
+                    <Text style={styles.subCategoryText}
+                    >{`${x.name}`}</Text>
+                    <Text style={styles.arrowIcon}>{'>'}</Text>
+                  </TouchableOpacity>
+              );
+            })}
+          </View>
+          <Text>{JSON.stringify(Object.keys(navigation), null, 2)}</Text>
+          {/*<Button title={'back'} onPress={()=> navigation.goBack()}/>*/}
         </ScrollView>
     );
   }
-  else {
-    // End of catalog, to the land of product-list, or error...
-    return (
-        <ProductList/>
-    );
-  }
-
-}
-
-function CategoryWrapper(props) {
-  const [catalogState] = useCatalogContext();
-  const {categories, rootCategoryId} = catalogState;
-
-  const [currentID, setCurrentID] = useState(props.id || rootCategoryId);
-
-  const getDisplayData = (id: string): Array<> => {
-    const {children} = categories[id] ?? {};
-
-    if (!children) {
-      console.info('no children. This should jump to Product list?');
-      //TODO: In this case, switch to Product list
-      return [];
-    }
-    else {
-      return children
-          //         get children data
-          .map(children_id => {
-            return categories[children_id];
-          })
-          // remove children with no data
-          .filter(x => !!x);
-    }
-
-  };
-  const name: string = categories[currentID]?.name ?? 'Such empty';
-
-  const renderData = useMemo(() => getDisplayData(currentID),
-      [currentID, categories, rootCategoryId, name],
-  );
-
   return (
-      <ScrollView style={styles.categoryOutline}>
-        <CategoryList name={name} data={renderData} handleChangePage={setCurrentID}/>
-        <SpaceBlock/>
-        <Text>{JSON.stringify({})}</Text>
-        <Button title={'RESET'} onPress={() => setCurrentID(rootCategoryId)}/>
-      </ScrollView>
+      <Text>Default return</Text>
   );
 }
 
@@ -159,8 +143,8 @@ const styles = StyleSheet.create({
 
 });
 
-export default CategoryWrapper;
+export default CategoryDumpComponent;
 
-export {CategoryList, CategoryWrapper, CategoryDumpComponent};
+export {CategoryDumpComponent};
 
 

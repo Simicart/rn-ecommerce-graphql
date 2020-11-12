@@ -2,52 +2,20 @@
 import 'react-native-gesture-handler';
 
 import React from 'react';
-import { AppRegistry, ScrollView } from 'react-native';
+import { AppRegistry } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
 import { AppComposite } from 'simicart';
 import AppRouter from './route/navigation';
-import { ProductList } from 'simicart';
 
 import { name as appName } from './app.json';
-
-import App from './src/App';
-import AppStateDisplay from './src/test_component/appStateDisplay.js';
-import CatalogStateDisplay from './src/test_component/catalogStateDisplay.js';
-import CartStateDisplay from './src/test_component/cartStateDisplay';
-import UserStateDisplay from './src/test_component/userStateDisplay.js';
-import CheckoutStateDisplay from './src/test_component/checkoutStateDisplay.js';
-import {
-  CategoryPage,
-  CategoryList,
-  CategoryWrapper,
-  CategoryDumpComponent,
-} from 'simicart';
-import CustomStateDisplay from './src/test_component/customStateDisplay';
 import counterSlice from './src/customReducer/counterSlice';
-import Config from './src/Helper/config'
-const Drawer = createDrawerNavigator();
+import Config from './src/Helper/config';
 
 function Index() {
   return (
     <NavigationContainer>
       <AppComposite customReducer={counterSlice} apiBase={Config.merchant_url}>
         <AppRouter />
-        {/* <Drawer.Navigator> */}
-        {/* <Drawer.Screen name={'Cart'} component={CartStateDisplay} />
-        <Drawer.Navigator>
-          <Drawer.Screen name={'Fetch data'} component={CategoryPage} />
-          <Drawer.Screen
-            name={'Category List_2'}
-            component={CategoryDumpComponent}
-          />
-          <Drawer.Screen name={'Custom'} component={CustomStateDisplay} />
-          <Drawer.Screen name={'Cart'} component={CartStateDisplay} />
-          <Drawer.Screen name={'App'} component={AppStateDisplay} />
-          <Drawer.Screen name={'Catalog'} component={CatalogStateDisplay} />
-          <Drawer.Screen name={'User'} component={UserStateDisplay} />
-          <Drawer.Screen name={'Checkout'} component={CheckoutStateDisplay} /> */}
-        {/* </Drawer.Navigator> */}
       </AppComposite>
     </NavigationContainer>
   );

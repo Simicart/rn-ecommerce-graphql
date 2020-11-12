@@ -22,9 +22,5 @@ export { fetchCartDetails } from './temporaryMocks/Network/fetchCartDetails.js';
 export { addItemMutation } from './temporaryMocks/Network/addItemMutation.js';
 export { removeItem } from './temporaryMocks/Network/removeItem.js';
 export { updateItem } from './temporaryMocks/Network/updateItem.js';
-export {
-  CategoryList,
-  CategoryWrapper,
-  CategoryDumpComponent,
-} from './lib/index.js';
-export * from './lib/index.js';
+export { CategoryDumpComponent } from './lib/index.js';
+export { ProductList } from './lib/index.js';

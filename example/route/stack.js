@@ -1,5 +1,5 @@
 import { CategoryPage } from 'simicart';
-import { HomePage, CategoryDumpComponent } from 'simicart';
+import { HomePage, CategoryDumpComponent, ProductList } from 'simicart';
 
 export default {
   splash: {
@@ -21,5 +21,10 @@ export default {
     active: true,
     route_name: 'Category',
     component: CategoryDumpComponent,
+  },
+  productList: {
+    active: true,
+    route_name: 'ProductList',
+    component: ProductList,
   },
 };
