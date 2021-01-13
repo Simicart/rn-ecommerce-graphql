@@ -24,3 +24,4 @@ export { removeItem } from './temporaryMocks/Network/removeItem.js';
 export { updateItem } from './temporaryMocks/Network/updateItem.js';
 export { CategoryDumpComponent } from './lib/index.js';
 export { ProductList } from './lib/index.js';
+export * from './lib/components/Form/index';

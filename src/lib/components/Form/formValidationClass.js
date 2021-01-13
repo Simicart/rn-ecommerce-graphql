@@ -1,0 +1,108 @@
+import * as yup from 'yup';
+import ObjectSchema from 'yup/lib/object.js';
+import type { strictFieldData } from './data.flow.js';
+import { fieldType } from './fieldType.js';
+import Identify from "../../util/Identify";
+
+const errorMessageForRequiredField = 'This field is required';
+
+const matchPattern: { [string]: Array<patternErrorBlob> } = {
+	[fieldType.EMAIL]: [
+		{
+			pattern: /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/,
+			message: Identify.__('Please enter valid email'),
+		},
+	],
+	[fieldType.PASSWORD]: [
+		{
+			pattern: /.{6,}/,
+			// pattern: /^.*$/,
+
+			message: Identify.__(
+				'Password length must be at least 6 characters',
+			),
+		},
+	],
+};
+
+class FormValidationClass {
+	static getFieldValidationObject = (
+		fieldData: strictFieldData,
+	): YupObject => {
+		const { key, type, isRequired } = fieldData;
+		const object = {
+			[key]: yup.string().ensure(),
+		};
+		if (isRequired) {
+			object[key] = object[key]
+				.required(errorMessageForRequiredField)
+				.test(
+					'key has value',
+					errorMessageForRequiredField,
+					(value) => value !== '',
+				);
+		}
+		//match input type to correct pattern (if exists)
+		//ex: inputKey = 'email' ---> get match_pattern(s) of email
+		const match_pattern = matchPattern[type];
+		if (match_pattern) {
+			match_pattern.forEach((slug) => {
+				if (isRequired) {
+					object[key] = object[key].matches(
+						slug.pattern,
+						slug.message,
+					);
+				} else {
+					// //   if optional, can be no fill or fill in correct format
+					object[key] = object[key].test(
+						'key is empty or correctly formatted',
+						slug.message,
+						(value: string) =>
+							value === '' || slug.pattern.test(value),
+					);
+				}
+			});
+		}
+		return yup.object().shape(object);
+	};
+
+	static getValidationObject = (data: Array<strictFieldData>): YupObject => {
+		let validationSchema = yup.object();
+		data.forEach((field) => {
+			if (!field.optOut) {
+				validationSchema = validationSchema.concat(
+					this.getFieldValidationObject(field),
+				);
+			}
+		});
+		return validationSchema;
+	};
+
+	static getCustomValidationObject = (
+		customValidation = yup.object(),
+	): YupObject => {
+		return customValidation;
+	};
+
+	static getValidationSchema = (
+		data: Array<strictFieldData>,
+		customValidation: ?YupObject,
+	): YupObject => {
+		// return this.getCustomValidationObject(customValidation)
+		//     .concat(this.getValidationObject(data));
+
+		if (customValidation) {
+			return this.getCustomValidationObject(customValidation);
+		}
+		return this.getValidationObject(data);
+	};
+}
+
+type YupObject = typeof ObjectSchema;
+
+type patternErrorBlob = {
+	pattern: RegExp,
+	message: string,
+};
+
+export { FormValidationClass };

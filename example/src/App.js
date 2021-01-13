@@ -6,8 +6,8 @@ import CatalogStateDisplay from './test_component/catalogStateDisplay.js';
 export default function App() {
   return (
     <ScrollView>
-      <AppStateDisplay />
-      <CatalogStateDisplay />
+      {/*<AppStateDisplay />*/}
+      {/*<CatalogStateDisplay />*/}
     </ScrollView>
   );
 }

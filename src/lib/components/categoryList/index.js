@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ActivityIndicator
 } from 'react-native';
-import {useCatalogContext} from '../../..';
+import {GeneralizedForm, useCatalogContext} from '../../..';
 import {useCategory} from '../../../talon/category/useCategory.js';
 import categoryQuery from '../../../ui/category/categoryQuery.js';
 
@@ -32,6 +32,13 @@ function CategoryDumpComponent(props) {
 
   const {error, loading} = talonProps;
 
+  return (
+      <GeneralizedForm formShape={[
+        {
+          inputKey: 'hello', inputTitle: 'he'
+        }
+      ]}/>
+  )
   if (loading) {
     return (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
