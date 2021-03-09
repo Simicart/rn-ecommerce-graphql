@@ -23,7 +23,7 @@ jobs:
             '@I summon myself to handle this issue',
             '@Sign me up'
             ]
-            if ( helping_call.some( x => comment_content.includes(x.toLocaleLowerCase()))){
+            if ( helping_call.some( x => comment_content.includes(x))){
               github.issues.addAssignees({
                             issue_number: context.payload.issue.number,
                             owner: context.repo.owner,
