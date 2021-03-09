@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView } from 'react-native';
 import StateDisplayer from './stateDisplayer';
 import ColorfulButton from '../visualComponent/ColorfulButton';
+
 import { useCatalogContext } from 'simicart';
 import { getRandomLargeNumber } from '../Helper/getRandomLargeNumber';
 

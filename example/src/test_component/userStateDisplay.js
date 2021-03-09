@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { useUserContext } from 'simicart';
 import StateDisplayer from './stateDisplayer.js';
 import ColorfulButton from '../visualComponent/ColorfulButton.js';
+
 import { getRandomLargeNumber } from '../Helper/getRandomLargeNumber.js';
 
 function UserStateDisplay(props) {
