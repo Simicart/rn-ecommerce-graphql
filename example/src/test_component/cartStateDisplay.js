@@ -24,11 +24,16 @@ function CartStateDisplay(props) {
     actions,
   } = cartApi;
   const { reset } = actions;
+  const { navigation } = props;
 
   return (
     <ScrollView>
       <StateDisplayer data={cartState} title={'Cart'} />
       {/*<Text>{JSON.stringify(Object.entries(cartApi), null, 1)}</Text>*/}
+      <ColorfulButton
+        title={'Navigate'}
+        onPress={() => navigation.navigate('Category')}
+      />
       <ColorfulButton
         title={`Get CART_ID`}
         onPress={() =>

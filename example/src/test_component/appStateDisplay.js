@@ -15,11 +15,18 @@ function AppStateDisplay(props) {
     setOnline,
     setOffline,
     setPageLoading,
+    switchStack,
   } = appApi;
 
   return (
     <ScrollView>
       <StateDisplayer data={appState} title={'App'} />
+      <ColorfulButton
+        title={'stack'}
+        onPress={() => {
+          switchStack('app');
+        }}
+      />
       <ColorfulButton
         title={'TOGGLE_DRAWER'}
         onPress={() => {

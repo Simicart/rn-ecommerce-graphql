@@ -12,9 +12,16 @@ const initialState = {
   overlay: false,
   pending: {},
   searchOpen: false,
+  stack : 'splash'
 };
 
 const reducerMap = {
+  [actions.switchStack]: (state, {payload}) => {
+    return {
+      ...state,
+      stack: payload,
+    };
+  },
   [actions.toggleDrawer]: (state, {payload}) => {
     return {
       ...state,

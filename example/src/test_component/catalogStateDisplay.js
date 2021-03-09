@@ -10,11 +10,13 @@ const cycleRange = 3;
 
 const fakeOrder_1 = {
   id: 1,
+  name: 'packed name 1',
   children: [],
 };
 
 const fakeOrder_2 = {
   id: 2,
+  name: 'packed name 2',
   children: [
     {
       id: 38,
@@ -46,6 +48,7 @@ const fakeOrder_2 = {
 
 const fakeOrder_3 = {
   id: 1,
+  name: 'packed name 2.5',
   children: [
     {
       id: 20,

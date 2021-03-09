@@ -1,104 +1,88 @@
-import { handleActions } from 'redux-actions';
+import {handleActions} from 'redux-actions';
+import {flattenNestedStruct} from '../../util/flattenNestedStruct.js';
 
 import actions from '../actions/catalog';
 
 export const name = 'catalog';
 
-const fromPairs = pairs => {
-    const result = {};
-
-    for (const [key, value] of pairs) {
-        result[key] = value;
-    }
-
-    return result;
-};
-
 const initialState = {
-    categories: {},
-    currentPage: 1,
-    pageSize: 6,
-    prevPageTotal: null,
-    rootCategoryId: 2
+  categories: {},
+  currentPage: 1,
+  pageSize: 6,
+  prevPageTotal: null,
+  rootCategoryId: 2,
 };
 
 const reducerMap = {
 
-    //Flatten children
-    [actions.updateCategories]: (state, { payload }) => {
-        const { id } = payload;
-        const currentCategory = state.categories[id] || {};
+  //Flatten children
+  [actions.updateCategories]: (state, {payload}) => {
+    // console.log(JSON.stringify(payload, null, 2));
 
-        // if category has already been fetched, do nothing
-        if (currentCategory.children) {
-            return state;
-        }
+    const {id} = payload;
+    const currentCategory = state.categories[id] || {};
+    const currentId = currentCategory.id
+                      ?? payload.rootCategoryId
+                      ?? state.rootCategoryId
+                      ?? 2;
 
-        // sort children by `position`
-        const children = [...payload.children].sort((a, b) => {
-            if (a.position > b.position) {
-                return 1;
-            } else if (a.position === b.position && a.id > b.id) {
-                return 1;
-            } else {
-                return -1;
-            }
-        });
-
-        // use a Map to preserve sort order
-        // since a plain object with numeric keys would lose it
-        const childMap = new Map();
-
-        // merge children and add them to the Map, keyed by `id`
-        for (const child of children) {
-            childMap.set(child.id, {
-                ...child,
-                ...(state.categories[child.id] || {}),
-                parentId: id
-            });
-        }
-
-        // merge in the fetched child last
-        return {
-            ...state,
-            categories: {
-                ...state.categories,
-                ...fromPairs(childMap),
-                [id]: {
-                    ...currentCategory,
-                    ...payload,
-                    children: [...childMap.keys()],
-                    children_count: childMap.size
-                }
-            }
-        };
-    },
-    [actions.setRootCategory]: (state, { payload }) => {
-        return {
-            ...state,
-            rootCategoryId: payload
-        };
-    },
-    [actions.setCurrentPage.receive]: (state, { payload, error }) => {
-        if (error) {
-            return state;
-        }
-
-        return {
-            ...state,
-            currentPage: payload
-        };
-    },
-    [actions.setPrevPageTotal.receive]: (state, { payload, error }) => {
-        if (error) {
-            return state;
-        }
-
-        return {
-            ...state,
-            prevPageTotal: payload
-        };
+    // if category has already been fetched, do nothing
+    if (currentCategory.children) {
+      return state;
     }
+
+    // merge in the fetched child last
+    return {
+      ...state,
+      categories: {
+        ...state.categories,
+        ...flattenNestedStruct(
+            {
+              id: currentId,
+              children: payload.children,
+            },
+            'children',
+            'id',
+            currentId,
+        ),
+        [currentId]: {
+          id: currentId,
+          level: currentCategory.level ?? 1,
+          name: 'Root category',
+          children: payload.children
+                           .map(x => x ? x.id : null)
+                           .filter(x => !!x),
+        },
+      },
+    };
+  },
+
+  [actions.setRootCategory]: (state, {payload}) => {
+    return {
+      ...state,
+      rootCategoryId: payload,
+    };
+  },
+  [actions.setCurrentPage.receive]: (state, {payload, error}) => {
+    if (error) {
+      return state;
+    }
+
+    return {
+      ...state,
+      currentPage: payload,
+    };
+  },
+  [actions.setPrevPageTotal.receive]: (state, {payload, error}) => {
+    if (error) {
+      return state;
+    }
+
+    return {
+      ...state,
+      prevPageTotal: payload,
+    };
+  },
 };
 
 export default handleActions(reducerMap, initialState);

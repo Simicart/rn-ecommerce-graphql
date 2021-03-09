@@ -6,7 +6,8 @@ const actionTypes = [
     'SET_OFFLINE',
     'TOGGLE_SEARCH',
     'EXECUTE_SEARCH',
-    'SET_PAGE_LOADING'
+    'SET_PAGE_LOADING',
+    'SWITCH_STACK'
 ];
 const prefix = 'APP';
 

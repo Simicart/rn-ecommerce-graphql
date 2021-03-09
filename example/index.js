@@ -7,9 +7,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { AppComposite } from 'simicart';
+import AppRouter from './route/navigation';
 
 import { name as appName } from './app.json';
-
 import App from './src/App';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AppStateDisplay from './src/test_component/appStateDisplay.js';
