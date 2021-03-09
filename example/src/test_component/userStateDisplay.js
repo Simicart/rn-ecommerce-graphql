@@ -3,7 +3,6 @@ import { ScrollView } from 'react-native';
 import { useUserContext } from 'simicart';
 import StateDisplayer from './stateDisplayer.js';
 import ColorfulButton from '../visualComponent/ColorfulButton.js';
-import Footer from '../components/Footer/footer'
 
 import { getRandomLargeNumber } from '../Helper/getRandomLargeNumber.js';
 
@@ -64,7 +63,6 @@ function UserStateDisplay(props) {
           signOut();
         }}
       />
-      <Footer />
     </ScrollView>
   );
 }

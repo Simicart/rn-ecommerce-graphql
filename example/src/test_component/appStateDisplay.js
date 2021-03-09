@@ -3,7 +3,6 @@ import { ScrollView } from 'react-native';
 import { useAppContext } from 'simicart';
 import ColorfulButton from '../visualComponent/ColorfulButton';
 import StateDisplayer from './stateDisplayer';
-import Footer from '../components/Footer/footer'
 
 function AppStateDisplay(props) {
   const [valid, setValid] = useState(true);
@@ -76,7 +75,6 @@ function AppStateDisplay(props) {
           setPageLoading(false);
         }}
       />
-      <Footer />
     </ScrollView>
   );
 }

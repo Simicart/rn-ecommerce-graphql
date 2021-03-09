@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { ScrollView } from 'react-native';
 import StateDisplayer from './stateDisplayer';
 import ColorfulButton from '../visualComponent/ColorfulButton';
-import Footer from '../components/Footer/footer'
 
 import { useCatalogContext } from 'simicart';
 import { getRandomLargeNumber } from '../Helper/getRandomLargeNumber';
@@ -103,7 +102,6 @@ function CatalogStateDisplay(props) {
           updateCategories(fakeOrder_3);
         }}
       />
-      <Footer />
     </ScrollView>
   );
 }
