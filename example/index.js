@@ -18,6 +18,8 @@ import CartStateDisplay from './src/test_component/cartStateDisplay';
 import UserStateDisplay from './src/test_component/userStateDisplay.js';
 import CheckoutStateDisplay from './src/test_component/checkoutStateDisplay.js';
 import TabBar from './src/components/TabBar/tabBar.js'
+import counterSlice from './src/customReducer/counterSlice';
+import Config from './src/Helper/config';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator()
@@ -25,7 +27,7 @@ const Tab = createBottomTabNavigator()
 function Index() {
   return (
     <NavigationContainer>
-      <AppComposite>
+      <AppComposite customReducer={counterSlice} apiBase={Config.merchant_url}>
         <Tab.Navigator tabBar={props => <TabBar {...props}/>}>
           <Tab.Screen name={'Cart'} component={CartStateDisplay}/>
           <Tab.Screen name={'App'} component={AppStateDisplay} options={{tabBarLabel: 'Home'}}/>
