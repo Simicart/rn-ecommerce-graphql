@@ -1,7 +1,8 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 import StateDisplayer from './stateDisplayer.js';
 import ColorfulButton from '../visualComponent/ColorfulButton.js';
+import Footer from '../components/Footer/footer'
 
 import { useCartContext } from 'simicart';
 import { fetchCartId } from 'simicart';
@@ -109,6 +110,7 @@ function CartStateDisplay(props) {
       <ColorfulButton title={`Remove Cart`} onPress={() => removeCart()} />
 
       <ColorfulButton title={`RESET`} onPress={() => reset()} />
+      <Footer />
     </ScrollView>
   );
 }

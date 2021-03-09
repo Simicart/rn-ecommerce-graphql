@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { useAppContext } from 'simicart';
 import ColorfulButton from '../visualComponent/ColorfulButton';
 import StateDisplayer from './stateDisplayer';
+import Footer from '../components/Footer/footer'
 
 function AppStateDisplay(props) {
   const [valid, setValid] = useState(true);
@@ -18,7 +19,7 @@ function AppStateDisplay(props) {
   } = appApi;
 
   return (
-    <View>
+    <ScrollView>
       <StateDisplayer data={appState} title={'App'} />
       <ColorfulButton
         title={'TOGGLE_DRAWER'}
@@ -63,7 +64,20 @@ function AppStateDisplay(props) {
           setPageLoading(false);
         }}
       />
-    </View>
+      <ColorfulButton
+        title={'SET_PAGE_LOADING true'}
+        onPress={() => {
+          setPageLoading(true);
+        }}
+      />
+      <ColorfulButton
+        title={'SET_PAGE_LOADING false'}
+        onPress={() => {
+          setPageLoading(false);
+        }}
+      />
+      <Footer />
+    </ScrollView>
   );
 }
 

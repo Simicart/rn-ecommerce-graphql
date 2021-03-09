@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { useCheckoutContext } from 'simicart';
 import StateDisplayer from './stateDisplayer.js';
 import ColorfulButton from '../visualComponent/ColorfulButton.js';
+import Footer from '../components/Footer/footer'
+
 import { getRandomLargeNumber } from '../Helper/getRandomLargeNumber.js';
 
 function CheckoutStateDisplay(props) {
@@ -84,6 +86,7 @@ function CheckoutStateDisplay(props) {
           resetReceipt();
         }}
       />
+      <Footer />
     </ScrollView>
   );
 }
