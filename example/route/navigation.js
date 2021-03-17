@@ -5,6 +5,7 @@ import { I18nManager, Platform, Dimensions } from 'react-native';
 
 import { useAppContext, CategoryDumpComponent, CategoryPage } from 'simicart';
 import StackRoute from './stack';
+import LeftMenu from '../src/components/leftMenu'
 
 const Stack = createStackNavigator();
 
@@ -46,6 +47,7 @@ function AppStack() {
           ? 280
           : (Dimensions.get('screen').width * 2) / 3
       }
+      drawerContent={props => <LeftMenu {...props}/>}
     >
       <Drawer.Screen name="Root" component={AppStack} />
       <Drawer.Screen
