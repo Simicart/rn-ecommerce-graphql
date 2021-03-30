@@ -1,10 +1,8 @@
 import React from 'react'
-import { Image, View, Text, TouchableOpacity } from 'react-native'
+import { Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Dimensions } from 'react-native';
 
 const {width} = Dimensions.get('window');
-
-
 
 function currencyFormat(num) {
 	return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
@@ -26,7 +24,7 @@ const Item = props => {
 	
 	return (
 		<TouchableOpacity 
-			style={(index === length-1 && length%2===1) ? {
+			style={(index === length-1 && length%2===1 && isGrid) ? {
 				width: (width-40)/2,
 				padding: 10,
 				paddingBottom: isGrid ?  10 : 32,
@@ -36,7 +34,7 @@ const Item = props => {
 			    elevation: 2,
 				marginBottom: 20,
 			} : {
-				flex: 1/2,
+				flex: 1,
 				padding: 10,
 				paddingBottom: isGrid ?  10 : 32,
 				marginHorizontal: 10,

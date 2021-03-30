@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react'
 
 export const GET_PRODUCT_LIST = gql`
   query(
-    $category_id: String!, 
+    $category_id: String!,
+    $pageSize: Int,
     $priceDir: SortEnum, 
     $nameDir: SortEnum,
     $positionDir: SortEnum,
@@ -26,7 +27,7 @@ export const GET_PRODUCT_LIST = gql`
         size: {in: $size},
         style_general: {in: $style_general}
       }, 
-      pageSize: 20,
+      pageSize: $pageSize,
       currentPage: 1,
       sort: {
         price: $priceDir,
@@ -73,22 +74,29 @@ export const GET_PRODUCT_LIST = gql`
           value
         }
       }
+      page_info {
+        current_page
+        total_pages
+      }
       total_count
     }
   }
 `
 
+const pageSizeStep = 12
+
 export const useProductList = id => {
   const [productList, setProductList] = useState([])
   const [sortFields, setSortFields] = useState([])
   const [filterFields, setFilterFields] = useState([])
+  const [canLoadMore, setCanLoadMore] = useState(true)
 
   const {
     data: initialData,
     loading: initialLoading,
     error: initialError,
   } = useQuery(GET_PRODUCT_LIST, {
-    variables: { category_id: `${id}` }
+    variables: { category_id: `${id}`, pageSize: pageSizeStep }
   })
 
   const [
@@ -106,20 +114,28 @@ export const useProductList = id => {
     let _productList = []
     let _sortFields = []
     let _filterFields = []
+    let _canLoadMore = true
     if(initialData && initialData.products) {
       _productList = initialData.products.items
       _sortFields = initialData.products.sort_fields.options
       _filterFields = initialData.products.aggregations
+      if(initialData.products.page_info.total_pages === 1) _canLoadMore = false
     }
     setProductList(_productList)
     setSortFields(_sortFields)
     setFilterFields(_filterFields)
+    setCanLoadMore(_canLoadMore)
   }, [initialData, id])
 
   useEffect(() => {
     let _productList = []
-    if(filteredData && filteredData.products) _productList = filteredData.products.items
+    let _canLoadMore = true
+    if(filteredData && filteredData.products) {
+      _productList = filteredData.products.items
+      if(filteredData.products.page_info.total_pages === 1) _canLoadMore = false
+    }
     setProductList(_productList)
+    setCanLoadMore(_canLoadMore)
   }, [filteredData])
 
   let derivedErrorMessage;
@@ -137,12 +153,14 @@ export const useProductList = id => {
          derivedErrorMessage = errorTarget.message;
      }
   }
- 
+
   return {
     sortAndFilterProducts,
     productList,
     sortFields,
     filterFields,
+    canLoadMore,
+    pageSizeStep,
     loading,
     derivedErrorMessage
   }

@@ -4,11 +4,13 @@ import {
 	View, 
 	Text, 
 	Image, 
-	FlatList, 
+	FlatList,
+	ListView,
 	TouchableOpacity, 
 	SafeAreaView, 
 	Checkbox,
-	StyleSheet
+	StyleSheet,
+	Dimensions
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
@@ -17,6 +19,8 @@ import FilterAndSortTags from './filterAndSortTags'
 import FilterOptions from './filter'
 import SortOptions from './sort'
 import { useProductList } from '../../../../talon/Product/useProductList'
+
+const { height } = Dimensions.get('window');
 
 const ProductList = props => {
 	const { id } = props.route.params
@@ -34,10 +38,14 @@ const ProductList = props => {
 		sortAndFilterProducts, 
 		productList,
 		sortFields,
-		filterFields, 
+		filterFields,
+		canLoadMore,
+		pageSizeStep,
 		loading, 
 		derivedErrorMessage 
 	} = useProductList(id)
+
+	const [pageSize, setPageSize] = useState(pageSizeStep)
 
 	useEffect(() => {
 		setActiveFilterCategories(Array(filterFields.length).fill(false))
@@ -46,16 +54,18 @@ const ProductList = props => {
 		if(filterFields) filterFields.map(({attribute_code}) => array.push(attribute_code))
 		setAttributeCodes(array)
 		setActiveSortLabel([])
+		setVariablesObject({pageSize: pageSizeStep, category_id: id})
+		setPageSize(pageSizeStep)
 	},[filterFields, id])
 
-	if(!productList) return <View />
+	if(!productList) return <Text>Loading</Text>
 
 	const _renderItem = ({item, index}) => {
-		const { id, thumbnail, name, price_range } = item
+		const { uid, thumbnail, name, price_range } = item
 		return (
 			<Item 
 				index={index}
-				id={id} 
+				id={uid} 
 				name={name} 
 				thumbnail={thumbnail} 
 				price_range={price_range} 
@@ -66,13 +76,41 @@ const ProductList = props => {
 		)
 	}
 
+	const _renderFooter = () => {
+		if(canLoadMore) {
+			return (
+				<View style={{alignItems: 'center'}}>
+					<TouchableOpacity 
+						style={{
+							alignItems: 'center', 
+							justifyContent: 'center',
+							width: 100,
+						}}
+						onPress={() => {
+							setVariablesObject({...variablesObject, pageSize: pageSize + pageSizeStep})
+							setPageSize(pageSize + pageSizeStep)
+							sortAndFilterProducts({variables: {...variablesObject, pageSize: pageSize + pageSizeStep}})
+						}}
+					>
+						<Text style={{
+							paddingHorizontal: 10, 
+							paddingBottom: 20, 
+							textDecorationLine: 'underline'
+						}}>Load more</Text>
+					</TouchableOpacity>
+				</View>
+			)
+		}
+		else return <View />
+	}
+
 	const toggleDisplayModeChange = () => setIsGrid(!isGrid)
 	const showFilterOptions = () => setIsFilterActive(!isFilterActive)
 	const showSortOptions = () => setIsSortActive(!isSortActive)
 
 	if(!isFilterActive && !isSortActive) {
 		return (
-			<View style={{minHeight: '100%'}}>
+			<View style={{height: '100%', minHeight: '100%'}}>
 				<View style={{height: 64}}/>
 				<FilterAndSortTags 
 					categoryId={id}
@@ -89,11 +127,12 @@ const ProductList = props => {
 				<FlatList 
 					data={productList}
 			        renderItem={_renderItem}
-			        keyExtractor={item => item.id}
+			        keyExtractor={item => item.uid}
 			        key={isGrid}
 			        numColumns={isGrid ? 2 : 1}
 			        style={{ flex: 1 }}
-			        contentContainerStyle={{marginTop: 10, paddingBottom: 45 }}
+			        contentContainerStyle={{marginTop: 10, paddingBottom: 45}}
+			        ListFooterComponent={_renderFooter}
 				/>
 				<View style={styles.footer}>
 					<TouchableOpacity style={{padding: 8}} onPress={toggleDisplayModeChange}>
@@ -106,7 +145,7 @@ const ProductList = props => {
 						<MaterialIcons name={'swap-vert'} size={24}/>
 					</TouchableOpacity>
 				</View>
-			</View>	
+			</View>
 		)
 	} else if (isFilterActive) {
 		return (
