@@ -56,7 +56,9 @@ function CategoryDumpComponent(props) {
       navigation.navigate('Categories', {id: id});
     } else {
       console.log('now render product');
-      navigation.navigate('ProductList');
+      navigation.navigate('ProductList', {
+        id: id
+      });
     }
   }
 
